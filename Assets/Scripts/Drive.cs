@@ -6,6 +6,9 @@ public class Drive : MonoBehaviour
 {
     [SerializeField] [Range(1f,100f)] float driveSpeed;
 
+
+    private bool driveActive = false;
+
     Player player;
     Camera mainCamera;
     RestrictBounds restrictBounds;
@@ -21,11 +24,14 @@ public class Drive : MonoBehaviour
 
     void Update()
     {
+        StartDrive();
         DriveObjects();
-    }
+    }    
 
     void DriveObjects()
     {
+        if(!driveActive) { return; }
+
         float increase = driveSpeed * Time.deltaTime;
 
         player.transform.position += new Vector3(0f, 0f, increase);
@@ -35,6 +41,16 @@ public class Drive : MonoBehaviour
 
     }
 
+
+
+    private void StartDrive()
+    {
+        if (driveActive) { return; }
+        if (FirstTouch.firstTouch)
+        {
+            driveActive = true;
+        }
+    }
 
 
 

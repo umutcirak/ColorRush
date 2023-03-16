@@ -7,25 +7,38 @@ public class HitObstacle : MonoBehaviour
     [SerializeField] GameObject ballItem;
     [SerializeField] GameObject[] fractureItems;
 
+    Player player;
+    UIManager uiManager;
     CameraShake cameraShaker;
     Drive driver;
     Shock shockEffect;
 
+    private bool hitOnce;
+
     private void Awake()
     {
+        player = FindObjectOfType<Player>();
         driver = FindObjectOfType<Drive>();
         cameraShaker = FindObjectOfType<CameraShake>();
         shockEffect = FindObjectOfType<Shock>();
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            driver.gameObject.SetActive(false);
+            if (!hitOnce)
+                hitOnce = true;
+            else
+                return;
 
+            driver.gameObject.SetActive(false);
+            player.LockMovement();
             cameraShaker.ShakeCamera();
             shockEffect.DoShock();
+            uiManager.OpenRestartButton();
+            
 
             ballItem.SetActive(false);
 

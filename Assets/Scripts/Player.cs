@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] [Range(0f, 100f)] float speed;
 
+    public bool lockPlayer;
+
     private void Awake()
     {
         rgbd = GetComponent<Rigidbody>();
@@ -23,7 +25,7 @@ public class Player : MonoBehaviour
 
     void MovePlayer()
     {
-        if(Input.touchCount > 0)
+        if(FirstTouch.firstTouch && !lockPlayer && Input.touchCount > 0)
         {
             touch = Input.GetTouch(0);            
 
@@ -41,6 +43,12 @@ public class Player : MonoBehaviour
 
         }
 
+    }
+
+    public void LockMovement()
+    {
+        rgbd.velocity = Vector3.zero;
+        lockPlayer = true;
     }
 
    
