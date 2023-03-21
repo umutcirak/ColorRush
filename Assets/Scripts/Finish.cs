@@ -32,6 +32,8 @@ public class Finish : MonoBehaviour
 
             uiManager.UpdateCoinText();
             uiManager.OpenEndScreen();
+
+            LevelManager.IncreaseCurrentLevel();
         }
 
     }

@@ -104,6 +104,8 @@ public class UIManager : MonoBehaviour
    
     public void OpenNextScene()
     {
+        if(SceneManager.GetActiveScene().buildIndex + 1 == SceneManager.sceneCountInBuildSettings) { return; }
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1 );
         FirstTouch.firstTouch = false;
     } 

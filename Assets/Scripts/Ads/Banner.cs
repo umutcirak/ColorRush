@@ -5,6 +5,8 @@ using GoogleMobileAds;
 using GoogleMobileAds.Api;
 public class Banner : MonoBehaviour
 {
+    Banner bannerAds = null;
+
 
 #if UNITY_ANDROID
     private string _adUnitId = "ca-app-pub-3940256099942544/6300978111"; // TEST ID
@@ -15,6 +17,11 @@ public class Banner : MonoBehaviour
 #endif
 
     BannerView _bannerView;
+
+    private void Awake()
+    {
+        ManageSingleton();
+    }
 
     public void Start()
     {
@@ -27,6 +34,20 @@ public class Banner : MonoBehaviour
         this.LoadAd();
     }
 
+
+    void ManageSingleton()
+    {
+        if(bannerAds == null)
+        {
+            bannerAds = this;
+            DontDestroyOnLoad(this);
+        }
+        else if(this != bannerAds)
+        {
+            Destroy(gameObject);
+        }
+
+    }
 
     public void CreateBannerView()
     {
