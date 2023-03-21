@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class FirstTouch : MonoBehaviour
 {
-    [SerializeField] GameObject[] elements;
+    [SerializeField] GameObject[] elementsDeactivate;
 
     public static bool firstTouch;
    
@@ -16,7 +16,7 @@ public class FirstTouch : MonoBehaviour
 
     public void DeactivateElements()
     {               
-        foreach (GameObject element in elements)
+        foreach (GameObject element in elementsDeactivate)
         {
             element.SetActive(false);
         }
